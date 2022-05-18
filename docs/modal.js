@@ -40,6 +40,8 @@ form.addEventListener("submit", (e) => {
     } else {
         return false
     }
+
+    e.preventDefault();
 });
 
 // lance modal  sur le bouton par le click
@@ -65,14 +67,23 @@ function launchModal() {
 
 }
 
+// fermeture modal de confirmation bouton fermer
+closeBouton.addEventListener("click", closeModalForm);
+function closeModalForm() {
+    comfirmation.style.display = "none";
+    modalbg.style.display = "none";
+    document.location.reload();
+}
+
 
  // condition pour appeller le message d'erreur si la valeur retourner est fausse.   
 function checkInputs() { 
+    let formIsValid = 1;
     let FirstError = document.querySelector("#first_error");
     if(firstInput.value == ""  || firstInput.value.length < 2) 
     {
         FirstError.innerHTML = " veuillez entrer au moins 2 caractère ou plus pour le champs du prénom.";
-        return false
+        formIsValid = 0;
     } else {
         FirstError.innerHTML = "";
 
@@ -85,7 +96,7 @@ function checkInputs() {
         LastError.innerHTML = " veuillez entrer au moins 2 caractère ou plus pour le champs du nom.";
         LastError.style.fontSize = "15px";
         LastError.style.color = "red";
-        return false
+        formIsValid = 0;
     } else {
             LastError.innerHTML = "";
     }
@@ -98,7 +109,7 @@ function checkInputs() {
         emailError.innerHTML = " Veuillez rentrer une adresse mail valide.";
         emailError.style.fontSize = "15px";
         emailError.style.color = "red";
-        return false
+        formIsValid = 0;
     } else {
         emailError.innerHTML = "";
     }
@@ -110,7 +121,7 @@ function checkInputs() {
         birthError.innerHTML = "veuillez entrer votre date de naissance.";
         birthError.style.fontSize = "15px";
         birthError.style.color = "red";
-        return false;
+        formIsValid = 0;
 
     } else {
         birthError.innerHTML = "";
@@ -123,7 +134,7 @@ function checkInputs() {
         numberError.innerHTML = "veuillez entrer un chiffre.";
         numberError.style.fontSize = "15px";
         numberError.style.color = "red";
-        return false;
+        formIsValid = 0;
     } else {
             numberError.innerHTML = "";
     }
@@ -139,7 +150,7 @@ function checkInputs() {
         locationError.style.color = "red";
         locationError.innerHTML = "vous devez choisir une option";
         locationError.style.fontSize = " 15px";
-        return false
+        formIsValid = 0;
     }
 
     let conditionChecked = document.querySelector(".condition_checked");
@@ -147,11 +158,18 @@ function checkInputs() {
         conditionChecked.innerHTML = " veuillez accepter les termes et conditions. ";
         conditionChecked.style.color = "red";
         conditionChecked.style.fontSize ="15px";
-        return false;
+        formIsValid = 0;
     } else {
         conditionCheck.innerHTML = "";
     }
-    return true;
+    if (formIsValid == 1) {
+        return true;
+    } else{
+        return false;
+    }
+    
+
+    
     
 }
 
@@ -170,13 +188,6 @@ closeModal2.addEventListener('click', function()  {
     document.location.reload();
 })
 
-// fermeture modal de confirmation bouton fermer
-closeBouton.addEventListener("click", closeModalForm);
-function closeModalForm() {
-    comfirmation.style.display = "none";
-    modalbg.style.display = "none";
-    document.location.reload();
-}
 
 
 
